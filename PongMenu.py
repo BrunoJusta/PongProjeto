@@ -26,17 +26,17 @@ sys = True
 
 ##Countdown
 
-txtIni= font.render(str("Iniciar Jogo"), True, WHITE)
+txtIni= font.render(str("INICIAR JOGO"), True, WHITE)
 window.blit(txtIni,[220,100])
 
 txtPongClassic = font.render(str("Pong Classico"), True, WHITE)
-window.blit(txtPongClassic,[190,200])
+window.blit(txtPongClassic,[210,200])
 
 txtPongPaddle = font.render(str("Pong Less Paddle"), True, WHITE)
-window.blit(txtPongPaddle,[210,300])
+window.blit(txtPongPaddle,[190,300])
 
 txtPongObjects = font.render(str("Pong Obstaculos"), True, WHITE)
-window.blit(txtPongObjects,[210,400])
+window.blit(txtPongObjects,[200,400])
 
 circleX = 350
 circleY = 250
@@ -48,7 +48,9 @@ while sys:
             sys = False
         if e.type == pygame.MOUSEBUTTONDOWN:
             mx, my = pygame.mouse.get_pos()
-            if mx > 190 and mx < 400 and my > 200 and my < 234:
+            if mx > 200 and mx < 461 and my > 190 and my < 237:
                 import PongClassic
-            if mx > 210 and mx < 530 and my > 300 and my < 334:
+            if mx > 180 and mx < 494 and my > 282 and my < 341:
                 import PongLessPaddle
+            if mx > 210 and mx < 530 and my > 398 and my < 438:
+                import PongObjects
