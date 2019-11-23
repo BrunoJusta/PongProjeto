@@ -29,11 +29,11 @@ sys = True
 txtCONT= font.render(str("Iniciar Jogo"), True, WHITE)
 window.blit(txtCONT,[220,100])
 
-txtYES = font.render(str("Pong Classic"), True, WHITE)
-window.blit(txtYES,[190,200])
+txtPongClassic = font.render(str("Pong Classic"), True, WHITE)
+window.blit(txtPongClassic,[190,200])
 
-txtNO = font.render(str("Pong Dificil"), True, WHITE)
-window.blit(txtNO,[210,300])
+txtPongPaddle = font.render(str("Pong Dificil"), True, WHITE)
+window.blit(txtPongPaddle,[210,300])
 
 circleX = 350
 circleY = 250
