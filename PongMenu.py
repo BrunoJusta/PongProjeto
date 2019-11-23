@@ -26,14 +26,17 @@ sys = True
 
 ##Countdown
 
-txtCONT= font.render(str("Iniciar Jogo"), True, WHITE)
-window.blit(txtCONT,[220,100])
+txtIni= font.render(str("Iniciar Jogo"), True, WHITE)
+window.blit(txtIni,[220,100])
 
-txtPongClassic = font.render(str("Pong Classic"), True, WHITE)
+txtPongClassic = font.render(str("Pong Classico"), True, WHITE)
 window.blit(txtPongClassic,[190,200])
 
-txtPongPaddle = font.render(str("Pong Dificil"), True, WHITE)
+txtPongPaddle = font.render(str("Pong Less Paddle"), True, WHITE)
 window.blit(txtPongPaddle,[210,300])
+
+txtPongObjects = font.render(str("Pong Obstaculos"), True, WHITE)
+window.blit(txtPongObjects,[210,400])
 
 circleX = 350
 circleY = 250
