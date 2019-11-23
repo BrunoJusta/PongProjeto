@@ -45,7 +45,7 @@ while sys:
             sys = False
         if e.type == pygame.MOUSEBUTTONDOWN:
             mx, my = pygame.mouse.get_pos()
-            if mx > 210 and mx < 250 and my > 300 and my < 334:
+            if mx > 190 and mx < 400 and my > 200 and my < 234:
                 import PongClassic
-            if mx > 400 and mx < 464 and my > 300 and my < 334:
+            if mx > 210 and mx < 530 and my > 300 and my < 334:
                 import PongLessPaddle
