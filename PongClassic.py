@@ -88,7 +88,7 @@ def continueGame(circleX, circleY, bounceBall, sys, txtScore, txtScore2):
                 if mx > 240 and mx < 304 and my > 300 and my < 334:
                     sys = False
                 if mx > 400 and mx < 464 and my > 300 and my < 334:
-                    pygame.quit()
+                    import PongMenu
 
 ##Countdown
 while i > 0:
