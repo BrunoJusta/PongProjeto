@@ -88,7 +88,7 @@ def continueGame(circleX, circleY, bounceBall, start, txtScore, txtScore2):
                 print (mx,my)
                 if mx > 320 and mx < 433 and my > 343 and my < 385:
                     start = False
-                if mx > 499 and mx < 583 and my > 342 and my < 384:
+                if mx > 499 and mx < 583 and my > 342 and my < 385:
                     import PongMenu
 
 '''___Countdown___'''

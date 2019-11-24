@@ -23,7 +23,7 @@ window.fill(BLUE)
 
 ##Definir Variaveis
 bounceBall= True
-sys = True
+start = True
 
 ##Pontuacoes
 scorePlayer1 = 0
@@ -63,13 +63,13 @@ def updateScore():
      window.blit(txtScore2,[675,15])
 
 ##Funcao jogar outra vez
-def continueGame(circleX, circleY, bounceBall, sys, txtScore, txtScore2):
+def continueGame(circleX, circleY, bounceBall, start, txtScore, txtScore2):
     if scorePlayer1 > scorePlayer2:
-        txtOver= OverFont.render(str("JOGADOR 1 VENCE!"), True, WHITE)
+        txtOver= OverFont.render(str("PLAYER 1 WINS!"), True, WHITE)
     elif scorePlayer1 < scorePlayer2:
-        txtOver= OverFont.render(str("JOGADOR 2 VENCE!"), True, WHITE)
+        txtOver= OverFont.render(str("PLAYER 2 WINS!"), True, WHITE)
     window.blit(txtOver,[230,200])
-    txtCONT= font.render(str("QUER CONTINUAR?"), True, WHITE)
+    txtCONT= font.render(str("CONTINUE?"), True, WHITE)
     window.blit(txtCONT,[285,280])
     txtYES = font.render(str("SIM"), True, WHITE)
     window.blit(txtYES,[320,340])
@@ -78,15 +78,15 @@ def continueGame(circleX, circleY, bounceBall, sys, txtScore, txtScore2):
     circleX = 450
     circleY = 350
     pygame.display.update()
-    while sys:
+    while start:
         for e in pygame.event.get():
             if e.type == pygame.QUIT:
                 bounceBall = False 
-                sys = False
+                start = False
             if e.type == pygame.MOUSEBUTTONDOWN:
                 mx, my = pygame.mouse.get_pos()
                 if mx > 320 and mx < 433 and my > 343 and my < 385:
-                    sys = False
+                    start = False
                 if mx > 499 and mx < 583 and my > 343 and my < 385:
                     import PongMenu
 
@@ -97,26 +97,7 @@ while i > 0:
     pygame.display.update()
     time.sleep(1)
     i -= 1
-    window.fill(BLUE)
-    window.blit(txtScore, scorePlacement)
-    
-    ##DRAW NET 
-    pygame.draw.line(window, GREEN, [450, 0], [450, 700], 5)
-    pygame.draw.line(window, GREEN, [0, 70], [900, 70], 5)
-    pygame.display.flip()
-
-    ##SCORE 1
-    window.blit(txtScore,scorePlacement)
-    pygame.display.update()
-
-    ##SCORE 2
-    window.blit(txtScore2,scorePlacement2)
-    pygame.display.update()
-
-    
-    paddle1 = pygame.draw.rect(window,DARKGREEN,(20,paddle1_Y,10,paddle1_H))
-    paddle2 = pygame.draw.rect(window,DARKGREEN,(870,paddle2_Y,10,paddle2_H))
-    pygame.display.update()
+    window.fill(BLUE)  
 
 ##iniciar o jogo
 while bounceBall:
@@ -192,23 +173,23 @@ while bounceBall:
         velY = velY * -1
 
     ##colisao no paddle direito
-    if (circleY+10)>=paddle2_Y and (circleY+10)<=(paddle2_Y+130) and circleX+10 == (870): 
+    if (circleY+10)>=paddle2_Y and (circleY+10)<=(paddle2_Y+135) and circleX+10 == (870): 
         velX = velX * -1
         dt = random.randint(1,2)
         velY = random.randint(4,7) * -1
         
     
     ##colisao no paddle esquerdo
-    if (circleY+10)>=paddle1_Y and (circleY+10)<=(paddle1_Y+130) and circleX+10 == (50): 
+    if (circleY+10)>=paddle1_Y and (circleY+10)<=(paddle1_Y+135) and circleX+10 == (50): 
         velX = velX * -1
         dt = random.randint(1,2)
         velY = random.randint(4,7) * -1
         
          
 
-    ##Jogo acaba quando a pontuacao chegar a 15
-    if scorePlayer1 == 15 or scorePlayer2 == 15:
-        continueGame(circleX, circleY, bounceBall, sys, txtScore, txtScore2)
+    ##Jogo acaba quando a pontuacao chegar a 10
+    if scorePlayer1 == 10 or scorePlayer2 == 10:
+        continueGame(circleX, circleY, bounceBall, start, txtScore, txtScore2)
         scorePlayer2 = 0
         txtScore2 = font.render(str(scorePlayer2), True,WHITE)
         scorePlayer1 = 0
@@ -226,7 +207,7 @@ while bounceBall:
     
     ##desenha a rede
     pygame.draw.line(window, GREEN, [450, 0], [450, 700], 5)
-    pygame.draw.line(window, GREEN, [0, 70], [900, 70], 5)
+    pygame.draw.line(window, GREEN, [0, 90], [900, 90], 5)
 
     ##Desenha a bola
     pygame.draw.circle(window, WHITE, (circleX, circleY), 10)
@@ -235,8 +216,6 @@ while bounceBall:
 
     ##SCORE 1
     window.blit(txtScore,scorePlacement)
-    pygame.display.update()
-
     ##SCORE 2
     window.blit(txtScore2,scorePlacement2)
     pygame.display.update()
