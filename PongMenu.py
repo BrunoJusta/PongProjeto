@@ -26,7 +26,20 @@ start = True
 
 #escreve os textos
 txtIni= CountFont.render(str("PONG"), True, GREEN)
-window.blit(txtIni,[320,100])
+window.blit(txtIni,[310,100])
+pygame.draw.line(window, GREEN, [70,118], [310,118], 5)
+pygame.draw.line(window, GREEN, [80,138], [310,138], 5)
+pygame.draw.line(window, GREEN, [80,158], [310,158], 5)
+pygame.draw.line(window, GREEN, [70,116], [70,535], 5)
+
+
+pygame.draw.line(window, GREEN, [620,118], [875,118], 5)
+pygame.draw.line(window, GREEN, [620,138], [865,138], 5)
+pygame.draw.line(window, GREEN, [620,158], [865,158], 5)
+pygame.draw.line(window, GREEN, [875,116], [875,535], 5)
+
+
+pygame.draw.line(window, GREEN,[70,535] ,  [875,535], 5)
 
 txtPongClassic = font.render(str("EASY"), True, WHITE)
 window.blit(txtPongClassic,[415,250])
@@ -38,6 +51,7 @@ pygame.draw.line(window, GREEN, [390,385], [540,385], 5)
 
 txtPongObjects = font.render(str("HARD"), True, WHITE)
 window.blit(txtPongObjects,[415,450])
+pygame.draw.line(window, GREEN, [410,485], [517,485], 5)
 
 pygame.display.update()
 while start:
