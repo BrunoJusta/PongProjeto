@@ -5,7 +5,7 @@ import pygame, time, random
 pygame.init()
 
 ##Definir Jaanela
-window = pygame.display.set_mode((700,500))
+window = pygame.display.set_mode((900,700))
 
 ##cores
 BLUE =  (52, 73, 94)
@@ -15,9 +15,9 @@ WHITE = (255, 255, 255)
 RED = (255,0,0)
 
 ##fontes
-font = pygame.font.Font(None, 50)
-CountFont = pygame.font.Font(None,150)
-OverFont = pygame.font.Font(None,70)
+font = pygame.font.Font(None, 100)
+CountFont = pygame.font.Font(None,200)
+OverFont = pygame.font.Font(None,80)
 
 ##Pintar a Janela de Preto
 window.fill(BLUE)
@@ -32,16 +32,16 @@ scorePlayer2 = 0
 
 ##Escreve as Pontuacoes
 txtScore = font.render(str(scorePlayer1), True,WHITE)
-scorePlacement = [175,20]
+scorePlacement = [225,15]
 txtScore2 = font.render(str(scorePlayer2), True,WHITE)
-scorePlacement2 = [525,20]
+scorePlacement2 = [675,15]
 
 #contador
 i = 3
 
 ##Posicao da bola
-circleX = 350
-circleY = 250
+circleX = 450
+circleY = 350
 
 #velocidade bola
 velX = 10
@@ -51,49 +51,49 @@ velY = 10
 dt = 1
 
 ##Posicao inicial do paddle
-paddle1_Y = 215
-paddle2_Y = 215
+paddle1_Y = 410
+paddle2_Y = 410
 
 #comprimento do paddle
-paddle1_H = 80
-paddle2_H = 80
+paddle1_H = 120
+paddle2_H = 120
 
 #objeto1
-object1_Y = 120
-object1_YFinal = object1_Y + 40
+object1_Y = 160
+object1_YFinal = object1_Y + 60
 
 #objeto2
-object2_Y = 400
-object2_YFinal = object2_Y + 40
+object2_Y = 600
+object2_YFinal = object2_Y + 60
 
 #objeto3
-object3_Y = 120
-object3_YFinal = object3_Y + 40
+object3_Y = 160
+object3_YFinal = object3_Y + 60
 
 #objeto4
-object4_Y = 400
-object4_YFinal = object4_Y + 40
+object4_Y = 600
+object4_YFinal = object4_Y + 60
 
 '''___Update das Pontuacoes___'''
 def updateScore():
-    window.blit(txtScore,[175,20])
-    window.blit(txtScore2,[525,20])
+    window.blit(txtScore,[225,15])
+    window.blit(txtScore2,[675,15])
 
 '''___Funcao jogar outra vez___'''
 def continueGame(circleX, circleY, bounceBall, start, txtScore, txtScore2):
     if scorePlayer1 > scorePlayer2:
-        txtOver= OverFont.render(str("JOGADOR 1 VENCE!"), True, WHITE)
+        txtOver= OverFont.render(str("PLAYER 1 WINS!"), True, WHITE)
     elif scorePlayer1 < scorePlayer2:
-        txtOver= OverFont.render(str("JOGADOR 2 VENCE!"), True, WHITE)
-    window.blit(txtOver,[120,200])
-    txtCONT= font.render(str("QUER CONTINUAR?"), True, WHITE)
-    window.blit(txtCONT,[185,250])
-    txtYES = font.render(str("SIM"), True, WHITE)
-    window.blit(txtYES,[240,300])
-    txtNO = font.render(str("NAO"), True, WHITE)
-    window.blit(txtNO,[400,300])
-    circleX = 350
-    circleY = 250
+        txtOver= OverFont.render(str("PLAYER 2 WINS!"), True, WHITE)
+    window.blit(txtOver,[230,200])
+    txtCONT= OverFont.render(str("CONTINUE?"), True, WHITE)
+    window.blit(txtCONT,[285,280])
+    txtYES = OverFont.render(str("YES"), True, WHITE)
+    window.blit(txtYES,[320,340])
+    txtNO = OverFont.render(str("NO"), True, WHITE)
+    window.blit(txtNO,[500,340])
+    circleX = 450
+    circleY = 350
     pygame.display.update()
     while start:
         for e in pygame.event.get():
@@ -102,15 +102,15 @@ def continueGame(circleX, circleY, bounceBall, start, txtScore, txtScore2):
                 start = False
             if e.type == pygame.MOUSEBUTTONDOWN:
                 mx, my = pygame.mouse.get_pos()
-                if mx > 240 and mx < 304 and my > 300 and my < 334:
+                if mx > 320 and mx < 433 and my > 343 and my < 385:
                     start = False
-                if mx > 400 and mx < 464 and my > 300 and my < 334:
+                if mx > 499 and mx < 583 and my > 342 and my < 384:
                    import PongMenu
 
 '''___Countdown___'''
 while i > 0:
     txtCountdown = CountFont.render(str(i), True, WHITE)
-    window.blit(txtCountdown,[325,225])
+    window.blit(txtCountdown,[415,300])
     pygame.display.update()
     time.sleep(1)
     i -= 1
@@ -130,146 +130,146 @@ while bounceBall:
     ##movimento dos paddles                     
     keys = pygame.key.get_pressed()
     if keys[pygame.K_w]:
-        paddle1_Y-=10
+        paddle1_Y-=15
     if keys[pygame.K_s]:
-        paddle1_Y+=10
+        paddle1_Y+=15
     if keys[pygame.K_UP]:
-        paddle2_Y-=10
+        paddle2_Y-=15
     if keys[pygame.K_DOWN]:
-        paddle2_Y+=10
+        paddle2_Y+=15
     
     #bola a andar
     circleX += velX * dt
     circleY += velY * dt
         
     #limites paddle 1
-    if paddle1_Y<80:
-        paddle1_Y = 80
-    if paddle1_Y>490-paddle1_H:
-        paddle1_Y = 490-paddle1_H
+    if paddle1_Y<100:
+        paddle1_Y = 100
+    if paddle1_Y>690-paddle1_H:
+        paddle1_Y = 690-paddle1_H
 
     #limites paddle 2
-    if paddle2_Y<80:
-        paddle2_Y = 80
-    if paddle2_Y>490-paddle2_H:
-        paddle2_Y = 490-paddle2_H
+    if paddle2_Y<100:
+        paddle2_Y = 100
+    if paddle2_Y>690-paddle2_H:
+        paddle2_Y = 690-paddle2_H
 
     #Bola bater nas borda direita
-    if circleX > 690:
+    if circleX > 890:
 
         #Bola volta a posicao inicial
-        circleX = 350
-        circleY = 250
+        circleX = 450
+        circleY = 350
 
-        #posicoes aleatorias dos objetos
+         #posicoes aleatorias dos objetos
         #obejto1
-        object1_Y = random.randint(120,400)
-        object1_YFinal = object1_Y + 40
+        object1_Y = random.randint(160,280)
+        object1_YFinal = object1_Y + 60
         #obejto2
-        object2_Y = random.randint(120,400)
-        object2_YFinal = object2_Y + 40
+        object2_Y = random.randint(300,600)
+        object2_YFinal = object2_Y + 60
         #obejto3
-        object3_Y = random.randint(120,400)
-        object3_YFinal = object3_Y + 40
+        object3_Y = random.randint(160,280)
+        object3_YFinal = object3_Y + 60
         #obejto4
-        object4_Y = random.randint(120,400)
-        object4_YFinal = object4_Y + 40
+        object4_Y = random.randint(300,600)
+        object4_YFinal = object4_Y + 60
         
         #jogador um ganha um ponto
         scorePlayer1 += 1
         txtScore = font.render(str(scorePlayer1), True,WHITE)
 
         #repoe as variaveis
-        velY = 5
+        velY = 10
         dt = 1
 
         #se o jogador tiver mais de 10 pontos ao marcar um ponto o paddle do inimigo diminui
         if scorePlayer1 > 5:
-            paddle2_H -=10
+            paddle2_H -=20
 
         #se o jogador tiver o paddle diminuido ao marcar um ponto o paddle volta a aumentar
-        if paddle1_H < 80:
+        if paddle1_H < 120:
             paddle1_H +=10
 
     #Bola bater nas borda esquerda
     if circleX < 10:
 
         #Bola volta a posicao inicial
-        circleX = 350
-        circleY = 250
+        circleX = 450
+        circleY = 350
 
         #posicoes aleatorias dos objetos
         #obejto1
-        object1_Y = random.randint(100,200)
-        object1_YFinal = object1_Y + 40
+        object1_Y = random.randint(160,280)
+        object1_YFinal = object1_Y + 60
         #obejto2
-        object2_Y = random.randint(340,400)
-        object2_YFinal = object2_Y + 40
+        object2_Y = random.randint(300,600)
+        object2_YFinal = object2_Y + 60
         #obejto3
-        object3_Y = random.randint(100,200)
-        object3_YFinal = object3_Y + 40
+        object3_Y = random.randint(160,280)
+        object3_YFinal = object3_Y + 60
         #obejto4
-        object4_Y = random.randint(340,400)
-        object4_YFinal = object4_Y + 40
+        object4_Y = random.randint(300,600)
+        object4_YFinal = object4_Y + 60
 
         #jogador dois ganha um ponto
         scorePlayer2+=1
         txtScore2 = font.render(str(scorePlayer2), True,WHITE)
 
         #repoe as variavies
-        velY = 5
+        velY = 10
         dt = 1
 
         #se o jogador tiver mais de 10 pontos ao marcar um ponto o paddle do inimigo diminui
         if scorePlayer2 > 5:
-            paddle1_H -= 10
+            paddle1_H -= 20
         
         #se o jogador tiver o paddle diminuido ao marcar um ponto o paddle volta a aumentar
-        if paddle2_H < 80:
+        if paddle2_H < 120:
             paddle2_H +=10
 
     #Bola bater nas borda inferior
-    if circleY > 490:
-        circleY = 490
+    if circleY > 690:
+        circleY = 690
         velY = velY * -1
 
     #Bola bater nas borda superior
-    if circleY < 80:
-        circleY = 80
+    if circleY < 100:
+        circleY = 100
         velY = velY * -1
 
     ##colisao no objeto 1
-    if (circleY+10)>=object1_Y and (circleY+10)<=(object1_Y+50) and circleX+10 == (100): 
+    if (circleY+10)>=object1_Y and (circleY+10)<=(object1_Y+75) and circleX+10 == (150): 
         velX = velX * -1
         velY = random.randint(2,4)* -1
         dt = 1
 
     ##colisao no objeto 2
-    if (circleY+10)>=object2_Y and (circleY+10)<=(object2_Y+50) and circleX+10 == (250): 
+    if (circleY+10)>=object2_Y and (circleY+10)<=(object2_Y+75) and circleX+10 == (350): 
         velX = velX * -1
-        velY = random.randint(9,11)* -1
+        velY = random.randint(11,12)* -1
         dt = 1
 
     ##colisao no objeto 3
-    if (circleY+10)>=object3_Y and (circleY+10)<=(object3_Y+50) and circleX+10 == (450): 
+    if (circleY+10)>=object3_Y and (circleY+10)<=(object3_Y+75) and circleX+10 == (550): 
         velX = velX * -1
         velY = random.randint(2,4)* -1
         dt = 1
 
     ##colisao no objeto 4
-    if (circleY+10)>=object4_Y and (circleY+10)<=(object4_Y+50) and circleX+10 == (600): 
+    if (circleY+10)>=object4_Y and (circleY+10)<=(object4_Y+75) and circleX+10 == (750): 
         velX = velX * -1
-        velY = random.randint(9,11)* -1
+        velY = random.randint(11,12)* -1
         dt = 1
 
     ##colisao no paddle esquerdo
-    if (circleY+10)>=paddle1_Y+10 and (circleY+10)<=(paddle1_Y+100) and circleX+10 == (50): 
+    if (circleY+10)>=paddle1_Y+10 and (circleY+10)<=(paddle1_Y+130) and circleX+10 == (50): 
         velX = velX * -1
         dt = random.randint(1,2)
-        velY = random.randint(4,5) * -1
+        velY = random.randint(6,8) * -1
 
     ##colisao no paddle direito
-    if (circleY+10)>=paddle2_Y+10 and (circleY+10)<=(paddle2_Y+100) and circleX+10 == (670): 
+    if (circleY+10)>=paddle2_Y+10 and (circleY+10)<=(paddle2_Y+130) and circleX+10 == (870): 
         velX = velX * -1
         dt = random.randint(1,2)
         velY = random.randint(4,5) * -1
@@ -281,10 +281,10 @@ while bounceBall:
         txtScore2 = font.render(str(scorePlayer2), True,WHITE)
         scorePlayer1 = 0
         txtScore = font.render(str(scorePlayer1), True,WHITE)
-        paddle1_H = 80
-        paddle2_H = 80
+        paddle1_H = 120
+        paddle2_H = 120
         paddle1 = pygame.draw.rect(window, DARKGREEN, (20, paddle1_Y, 10, paddle1_H))
-        paddle2 = pygame.draw.rect(window, DARKGREEN, (670, paddle2_Y, 10, paddle2_H))
+        paddle2 = pygame.draw.rect(window, DARKGREEN, (870, paddle2_Y, 10, paddle2_H))
         pygame.display.flip()
 
     ##Pinta a janela
@@ -292,21 +292,21 @@ while bounceBall:
     
     ##desenha os paddles
     paddle1 = pygame.draw.rect(window, DARKGREEN, (20, paddle1_Y, 10, paddle1_H))
-    paddle2 = pygame.draw.rect(window, DARKGREEN, (670, paddle2_Y, 10, paddle2_H))
+    paddle2 = pygame.draw.rect(window, DARKGREEN, (870, paddle2_Y, 10, paddle2_H))
     ##desenha a rede
-    pygame.draw.line(window, GREEN, [350, 0], [350, 500], 5)
-    pygame.draw.line(window, GREEN, [0, 70], [700, 70], 5)
+    pygame.draw.line(window, GREEN, [450, 0], [450, 700], 5)
+    pygame.draw.line(window, GREEN, [0, 90], [900, 90], 5)
 
     ##Desenha a bola
     pygame.draw.circle(window, WHITE, (circleX, circleY), 10)
 
     pygame.display.flip()
 
-    pygame.draw.line(window, RED, [100, object1_Y], [100, object1_YFinal], 10)
-    pygame.draw.line(window, WHITE, [250, object2_Y], [250, object2_YFinal], 10)
+    pygame.draw.line(window, RED, [150, object1_Y], [150, object1_YFinal], 10)
+    pygame.draw.line(window, WHITE, [350, object2_Y], [350, object2_YFinal], 10)
 
-    pygame.draw.line(window, RED, [450, object3_Y], [450, object3_YFinal], 10)
-    pygame.draw.line(window, WHITE, [600, object4_Y], [600, object4_YFinal], 10)
+    pygame.draw.line(window, RED, [550, object3_Y], [550, object3_YFinal], 10)
+    pygame.draw.line(window, WHITE, [750, object4_Y], [750, object4_YFinal], 10)
 
 
     ##SCORE 1
