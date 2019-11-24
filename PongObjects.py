@@ -317,4 +317,4 @@ while bounceBall:
     window.blit(txtScore2,scorePlacement2)
     pygame.display.update()
 
-    time.sleep(0.03)
+    time.sleep(0.01)
