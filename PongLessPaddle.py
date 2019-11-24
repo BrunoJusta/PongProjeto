@@ -159,7 +159,7 @@ while bounceBall:
 
         #se o jogador tiver o paddle diminuido ao marcar um ponto o paddle volta a aumentar
         if paddle1_H < 120:
-            paddle1_H +=10
+            paddle1_H +=20
 
     #Bola bater nas borda esquerda
     if circleX < 10:
@@ -182,7 +182,7 @@ while bounceBall:
             
         #se o jogador tiver o paddle diminuido ao marcar um ponto o paddle volta a aumentar
         if paddle2_H < 120:
-            paddle2_H +=10
+            paddle2_H +=20
 
     #Bola bater nas borda inferior
     if circleY > 690:
@@ -198,16 +198,16 @@ while bounceBall:
     if (circleY+10)>=paddle2_Y and (circleY+10)<=(paddle2_Y+130) and circleX+10 == (870): 
         velX = velX * -1
         dt = random.randint(1,2)
-        velY = random.randint(6,8) * -1
+        velY = random.randint(5,7) * -1
     
     ##colisao no paddle esquerdo
     if (circleY+10)>=paddle1_Y and (circleY+10)<=(paddle1_Y+130) and circleX+10 == (50): 
         velX = velX * -1
         dt = random.randint(1,2)
-        velY = random.randint(6,8) * -1
+        velY = random.randint(5,7) * -1
 
     ##Jogo acaba quando a pontuacao chegar ao 30 ou quando um dos paddles deixar de existir
-    if scorePlayer1 == 30 or scorePlayer2 == 30 or paddle1_H == 0 or paddle2_H == 0:
+    if scorePlayer1 == 25 or scorePlayer2 == 25 or paddle1_H == 0 or paddle2_H == 0:
         continueGame(circleX, circleY, bounceBall, start, txtScore, txtScore2)
         scorePlayer2 = 0
         txtScore2 = font.render(str(scorePlayer2), True,WHITE)
@@ -236,10 +236,8 @@ while bounceBall:
 
     ##SCORE 1
     window.blit(txtScore,scorePlacement)
-    pygame.display.update()
-
     ##SCORE 2
     window.blit(txtScore2,scorePlacement2)
     pygame.display.update()
 
-    time.sleep(0.03)
+    time.sleep(0.01)
