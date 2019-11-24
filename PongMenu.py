@@ -5,7 +5,7 @@ import pygame, time, random
 pygame.init()
 
 ##Definir Jaanela
-window = pygame.display.set_mode((700,500))
+window = pygame.display.set_mode((900,700))
 
 ##cores
 BLUE =  (52, 73, 94)
@@ -25,17 +25,17 @@ window.fill(BLUE)
 start = True
 
 #escreve os textos
-txtIni= font.render(str("INICIAR JOGO"), True, WHITE)
-window.blit(txtIni,[220,100])
+txtIni= CountFont.render(str("PONG"), True, GREEN)
+window.blit(txtIni,[320,100])
 
-txtPongClassic = font.render(str("Pong Classico"), True, WHITE)
-window.blit(txtPongClassic,[210,200])
+txtPongClassic = font.render(str("EASY"), True, WHITE)
+window.blit(txtPongClassic,[415,250])
 
-txtPongPaddle = font.render(str("Pong Less Paddle"), True, WHITE)
-window.blit(txtPongPaddle,[190,300])
+txtPongPaddle = font.render(str("MEDIUM"), True, WHITE)
+window.blit(txtPongPaddle,[395,350])
 
-txtPongObjects = font.render(str("Pong Obstaculos"), True, WHITE)
-window.blit(txtPongObjects,[200,400])
+txtPongObjects = font.render(str("HARD"), True, WHITE)
+window.blit(txtPongObjects,[415,450])
 
 pygame.display.update()
 while start:
@@ -44,9 +44,9 @@ while start:
             start = False
         if e.type == pygame.MOUSEBUTTONDOWN:
             mx, my = pygame.mouse.get_pos()
-            if mx > 200 and mx < 461 and my > 190 and my < 237:
+            if mx > 396 and mx < 540 and my > 239 and my < 300:
                 import PongClassic
-            if mx > 180 and mx < 494 and my > 282 and my < 341:
+            if mx > 371 and mx < 564 and my > 334 and my < 391:
                 import PongLessPaddle
-            if mx > 210 and mx < 530 and my > 398 and my < 438:
+            if mx > 382 and mx < 544 and my > 438 and my < 495:
                 import PongObjects
