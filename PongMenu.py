@@ -30,9 +30,11 @@ window.blit(txtIni,[320,100])
 
 txtPongClassic = font.render(str("EASY"), True, WHITE)
 window.blit(txtPongClassic,[415,250])
+pygame.draw.line(window, GREEN, [414,285], [508,285], 5)
 
 txtPongPaddle = font.render(str("MEDIUM"), True, WHITE)
 window.blit(txtPongPaddle,[395,350])
+pygame.draw.line(window, GREEN, [390,385], [540,385], 5)
 
 txtPongObjects = font.render(str("HARD"), True, WHITE)
 window.blit(txtPongObjects,[415,450])
@@ -44,9 +46,11 @@ while start:
             start = False
         if e.type == pygame.MOUSEBUTTONDOWN:
             mx, my = pygame.mouse.get_pos()
-            if mx > 396 and mx < 540 and my > 239 and my < 300:
-                import PongClassic
-            if mx > 371 and mx < 564 and my > 334 and my < 391:
-                import PongLessPaddle
-            if mx > 382 and mx < 544 and my > 438 and my < 495:
-                import PongObjects
+            print(mx,my)
+            # if mx > 396 and mx < 540 and my > 239 and my < 300:
+            #     import PongClassic
+            # if mx > 371 and mx < 564 and my > 334 and my < 391:
+            #     import PongLessPaddle
+            # if mx > 382 and mx < 544 and my > 438 and my < 495:
+            #     import PongObjects
+
