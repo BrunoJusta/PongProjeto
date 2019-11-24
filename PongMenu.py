@@ -22,10 +22,9 @@ OverFont = pygame.font.Font(None,70)
 window.fill(BLUE)
 
 ##Definir Variaveis
-sys = True
+start = True
 
-##Countdown
-
+#escreve os textos
 txtIni= font.render(str("INICIAR JOGO"), True, WHITE)
 window.blit(txtIni,[220,100])
 
@@ -38,14 +37,11 @@ window.blit(txtPongPaddle,[190,300])
 txtPongObjects = font.render(str("Pong Obstaculos"), True, WHITE)
 window.blit(txtPongObjects,[200,400])
 
-circleX = 350
-circleY = 250
-
 pygame.display.update()
-while sys:
+while start:
     for e in pygame.event.get():
         if e.type == pygame.QUIT:
-            sys = False
+            start = False
         if e.type == pygame.MOUSEBUTTONDOWN:
             mx, my = pygame.mouse.get_pos()
             if mx > 200 and mx < 461 and my > 190 and my < 237:

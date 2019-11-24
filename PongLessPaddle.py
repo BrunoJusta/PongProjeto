@@ -23,18 +23,11 @@ window.fill(BLUE)
 
 ##Definir Variaveis
 bounceBall= True
-sys = True
+start = True
 
 ##Pontuacoes
 scorePlayer1 = 0
 scorePlayer2 = 0
-def chamarFuncao ():
-    print ("Ola")
-
-##Update das Pontuacoes
-def updateScore():
-    window.blit(txtScore,[175,20])
-    window.blit(txtScore2,[525,20])
 
 ##Escreve as Pontuacoes
 txtScore = font.render(str(scorePlayer1), True,WHITE)
@@ -42,8 +35,35 @@ scorePlacement = [175,20]
 txtScore2 = font.render(str(scorePlayer2), True,WHITE)
 scorePlacement2 = [525,20]
 
-##Funcao jogar outra vez
-def continueGame(circleX, circleY, bounceBall, sys, txtScore, txtScore2):
+##contador
+i = 3
+
+##Posicao da bola
+circleX = 350
+circleY = 250
+
+#velocidade bola
+velX = 10
+velY = 10
+
+#tempo
+dt = 1
+
+##Posicao do paddle
+paddle1_Y = 215
+paddle2_Y = 215
+
+##comprimento do paddle
+paddle1_H = 80
+paddle2_H = 80
+
+'''___Update das Pontuacoes___'''
+def updateScore():
+    window.blit(txtScore,[175,20])
+    window.blit(txtScore2,[525,20])
+
+'''___Funcao jogar outra vez___'''
+def continueGame(circleX, circleY, bounceBall, start, txtScore, txtScore2):
     if scorePlayer1 > scorePlayer2:
         txtOver= OverFont.render(str("JOGADOR 1 VENCE!"), True, WHITE)
     elif scorePlayer1 < scorePlayer2:
@@ -58,20 +78,19 @@ def continueGame(circleX, circleY, bounceBall, sys, txtScore, txtScore2):
     circleX = 350
     circleY = 250
     pygame.display.update()
-    while sys:
+    while start:
         for e in pygame.event.get():
             if e.type == pygame.QUIT:
                 bounceBall = False 
-                sys = False
+                start = False
             if e.type == pygame.MOUSEBUTTONDOWN:
                 mx, my = pygame.mouse.get_pos()
                 if mx > 240 and mx < 304 and my > 300 and my < 334:
-                    sys = False
+                    start = False
                 if mx > 400 and mx < 464 and my > 300 and my < 334:
-                   import PongMenu
+                    import PongMenu
 
-##Countdown
-i = 3
+'''___Countdown___'''
 while i > 0:
     txtCountdown = CountFont.render(str(i), True, WHITE)
     window.blit(txtCountdown,[325,225])
@@ -79,39 +98,11 @@ while i > 0:
     time.sleep(1)
     i -= 1
     window.fill(BLUE)
-    window.blit(txtScore, scorePlacement)
     
-    ##DRAW NET 
-    pygame.draw.line(window, GREEN, [350, 0], [350, 500], 5)
-    pygame.draw.line(window, GREEN, [0, 70], [700, 70], 5)
-    pygame.display.flip()
-
-    ##SCORE 1
-    window.blit(txtScore,scorePlacement)
-    pygame.display.update()
-
-    ##SCORE 2
-    window.blit(txtScore2,scorePlacement2)
-    pygame.display.update()
-
-    ##BALL
-    circleX = 350
-    circleY = 250
-    circleAccelX = 10
-    circleAccelY = 10
-    fx = 240
-    fy = 300
-    ##PADLE 1
-    paddle1_Y = 215
-    paddle2_Y = 215
-    paddle1_H = 80
-    paddle2_H = 80
-    paddle1 = pygame.draw.rect(window,DARKGREEN,(20,paddle1_Y,10,paddle1_H))
-    paddle2 = pygame.draw.rect(window,DARKGREEN,(670,paddle2_Y,10,paddle2_H))
-    pygame.display.update()
-
-##iniciar o jogo
+'''___iniciar o jogo____'''
 while bounceBall:
+
+    #Controlos
     for event in pygame.event.get(): 
         if event.type == pygame.QUIT:
               bounceBall = False 
@@ -129,6 +120,10 @@ while bounceBall:
         paddle2_Y-=10
     if keys[pygame.K_DOWN]:
         paddle2_Y+=10
+
+    #Bola a andar
+    circleX += velX * dt
+    circleY += velY * dt
         
     #limites paddle 1
     if paddle1_Y<80:
@@ -142,25 +137,25 @@ while bounceBall:
     if paddle2_Y>490-paddle2_H:
         paddle2_Y = 490-paddle2_H
 
-    dt = 1
-    #acoes
-    circleX += circleAccelX * dt
-    circleY += circleAccelY * dt
-
     #Bola bater nas borda direita
     if circleX > 690:
         
         #Bola volta a posicao inicial
         circleX = 350
         circleY = 250
-        
+
         #jogador um ganha um ponto
         scorePlayer1 += 1
         txtScore = font.render(str(scorePlayer1), True,WHITE)
 
-        #se o jogador tiver mais de 10 pontos ao marcar um ponto o paddle do inimigo diminui
-        if scorePlayer1 > 10:
+        #Repoe as variaveis
+        velY = 5
+        dt = 1
+
+        #se o jogador tiver mais de 5 pontos ao marcar um ponto o paddle do inimigo diminui
+        if scorePlayer1 > 5:
             paddle2_H -=10
+
         #se o jogador tiver o paddle diminuido ao marcar um ponto o paddle volta a aumentar
         if paddle1_H < 80:
             paddle1_H +=10
@@ -175,9 +170,15 @@ while bounceBall:
         #jogador dois ganha um ponto
         scorePlayer2+=1
         txtScore2 = font.render(str(scorePlayer2), True,WHITE)
-        #se o jogador tiver mais de 10 pontos ao marcar um ponto o paddle do inimigo diminui
-        if scorePlayer2 > 10:
+
+        #repoe as variaveis
+        velY = 5
+        dt = 1
+
+        #se o jogador tiver mais de 5 pontos ao marcar um ponto o paddle do inimigo diminui
+        if scorePlayer2 > 5:
             paddle1_H -= 10
+            
         #se o jogador tiver o paddle diminuido ao marcar um ponto o paddle volta a aumentar
         if paddle2_H < 80:
             paddle2_H +=10
@@ -185,38 +186,28 @@ while bounceBall:
     #Bola bater nas borda inferior
     if circleY > 490:
         circleY = 490
-        circleAccelY = circleAccelY * -1
+        velY = velY * -1
 
-
-        
-
-       
     #Bola bater nas borda superior
     if circleY < 80:
         circleY = 80
-        circleAccelY = circleAccelY * -1
-
-
+        velY = velY * -1
 
     ##colisao no paddle direito
     if (circleY+10)>=paddle2_Y and (circleY+10)<=(paddle2_Y+90) and circleX+10 == (670): 
-        circleAccelX = circleAccelX * -1
-        circleAccelY = circleAccelY * -1
-        circleAccelY = random.randint(5,10)
-        dt = random.randint(3,5)
+        velX = velX * -1
+        dt = random.randint(1,2)
+        velY = random.randint(4,6) * -1
     
     ##colisao no paddle esquerdo
     if (circleY+10)>=paddle1_Y and (circleY+10)<=(paddle1_Y+90) and circleX+10 == (50): 
-        circleAccelX = circleAccelX * -1
-        circleAccelY = circleAccelY * -1
-        circleAccelY = random.randint(5,10)
-        dt = random.randint(3,5)
-
-
+        velX = velX * -1
+        dt = random.randint(1,2)
+        velY = random.randint(4,6) * -1
 
     ##Jogo acaba quando a pontuacao chegar ao 30 ou quando um dos paddles deixar de existir
     if scorePlayer1 == 30 or scorePlayer2 == 30 or paddle1_H == 0 or paddle2_H == 0:
-        continueGame(circleX, circleY, bounceBall, sys, txtScore, txtScore2)
+        continueGame(circleX, circleY, bounceBall, start, txtScore, txtScore2)
         scorePlayer2 = 0
         txtScore2 = font.render(str(scorePlayer2), True,WHITE)
         scorePlayer1 = 0

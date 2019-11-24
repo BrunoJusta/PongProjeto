@@ -23,7 +23,7 @@ window.fill(BLUE)
 
 ##Definir Variaveis
 bounceBall= True
-sys = True
+start = True
 
 ##Pontuacoes
 scorePlayer1 = 0
@@ -35,7 +35,7 @@ scorePlacement = [175,20]
 txtScore2 = font.render(str(scorePlayer2), True,WHITE)
 scorePlacement2 = [525,20]
 
-##Valor do countdown
+##contador
 i = 3
 
 ##Posicao Bola
@@ -57,13 +57,13 @@ paddle2_Y = 215
 paddle1_H = 80
 paddle2_H = 80
 
-##Update das Pontuacoes
+'''___Update das Pontuacoes___'''
 def updateScore():
     window.blit(txtScore,[175,20])
     window.blit(txtScore2,[525,20])
 
-##Funcao jogar outra vez
-def continueGame(circleX, circleY, bounceBall, sys, txtScore, txtScore2):
+'''___Funcao jogar outra vez___'''
+def continueGame(circleX, circleY, bounceBall, start, txtScore, txtScore2):
     if scorePlayer1 > scorePlayer2:
         txtOver= OverFont.render(str("JOGADOR 1 VENCE!"), True, WHITE)
     elif scorePlayer1 < scorePlayer2:
@@ -78,19 +78,19 @@ def continueGame(circleX, circleY, bounceBall, sys, txtScore, txtScore2):
     circleX = 350
     circleY = 250
     pygame.display.update()
-    while sys:
+    while start:
         for e in pygame.event.get():
             if e.type == pygame.QUIT:
                 bounceBall = False 
-                sys = False
+                start = False
             if e.type == pygame.MOUSEBUTTONDOWN:
                 mx, my = pygame.mouse.get_pos()
                 if mx > 240 and mx < 304 and my > 300 and my < 334:
-                    sys = False
+                    start = False
                 if mx > 400 and mx < 464 and my > 300 and my < 334:
                     import PongMenu
 
-##Countdown
+'''___Countdown___'''
 while i > 0:
     txtCountdown = CountFont.render(str(i), True, WHITE)
     window.blit(txtCountdown,[325,225])
@@ -98,27 +98,8 @@ while i > 0:
     time.sleep(1)
     i -= 1
     window.fill(BLUE)
-    window.blit(txtScore, scorePlacement)
     
-    ##DRAW NET 
-    pygame.draw.line(window, GREEN, [350, 0], [350, 500], 5)
-    pygame.draw.line(window, GREEN, [0, 70], [700, 70], 5)
-    pygame.display.flip()
-
-    ##SCORE 1
-    window.blit(txtScore,scorePlacement)
-    pygame.display.update()
-
-    ##SCORE 2
-    window.blit(txtScore2,scorePlacement2)
-    pygame.display.update()
-
-    
-    paddle1 = pygame.draw.rect(window,DARKGREEN,(20,paddle1_Y,10,paddle1_H))
-    paddle2 = pygame.draw.rect(window,DARKGREEN,(670,paddle2_Y,10,paddle2_H))
-    pygame.display.update()
-
-##iniciar o jogo
+'''___iniciar o jogo____'''
 while bounceBall:
 
     ##Controlos
@@ -162,9 +143,12 @@ while bounceBall:
         #Bola volta a posicao inicial
         circleX = 350 
         circleY = 250 
+
         #jogador um ganha um ponto
         scorePlayer1 += 1
         txtScore = font.render(str(scorePlayer1), True,WHITE)
+
+        #repoe as variaveis
         velY = 5
         dt = 1
         
@@ -178,6 +162,8 @@ while bounceBall:
         #jogador dois ganha um ponto
         scorePlayer2+=1
         txtScore2 = font.render(str(scorePlayer2), True,WHITE)
+
+        #repoe as variaveis
         velY = 5
         dt = 1
 
@@ -195,20 +181,17 @@ while bounceBall:
     if (circleY+10)>=paddle2_Y and (circleY+10)<=(paddle2_Y+90) and circleX+10 == (670): 
         velX = velX * -1
         dt = random.randint(1,2)
-        velY = random.randint(4,7) * -1
+        velY = random.randint(4,5) * -1
         
-    
     ##colisao no paddle esquerdo
     if (circleY+10)>=paddle1_Y and (circleY+10)<=(paddle1_Y+90) and circleX+10 == (50): 
         velX = velX * -1
         dt = random.randint(1,2)
-        velY = random.randint(4,7) * -1
+        velY = random.randint(4,5) * -1
         
-         
-
     ##Jogo acaba quando a pontuacao chegar a 15
     if scorePlayer1 == 15 or scorePlayer2 == 15:
-        continueGame(circleX, circleY, bounceBall, sys, txtScore, txtScore2)
+        continueGame(circleX, circleY, bounceBall, start, txtScore, txtScore2)
         scorePlayer2 = 0
         txtScore2 = font.render(str(scorePlayer2), True,WHITE)
         scorePlayer1 = 0
