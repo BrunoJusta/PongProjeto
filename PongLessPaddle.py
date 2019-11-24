@@ -85,9 +85,10 @@ def continueGame(circleX, circleY, bounceBall, start, txtScore, txtScore2):
                 start = False
             if e.type == pygame.MOUSEBUTTONDOWN:
                 mx, my = pygame.mouse.get_pos()
-                if mx > 240 and mx < 304 and my > 300 and my < 334:
+                print (mx,my)
+                if mx > 320 and mx < 433 and my > 343 and my < 385:
                     start = False
-                if mx > 400 and mx < 464 and my > 300 and my < 334:
+                if mx > 499 and mx < 583 and my > 342 and my < 384:
                     import PongMenu
 
 '''___Countdown___'''
