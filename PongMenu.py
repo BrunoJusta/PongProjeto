@@ -58,13 +58,13 @@ while start:
     for e in pygame.event.get():
         if e.type == pygame.QUIT:
             start = False
+            pygame.quit()
         if e.type == pygame.MOUSEBUTTONDOWN:
             mx, my = pygame.mouse.get_pos()
-            print(mx,my)
-            # if mx > 396 and mx < 540 and my > 239 and my < 300:
-            #     import PongClassic
-            # if mx > 371 and mx < 564 and my > 334 and my < 391:
-            #     import PongLessPaddle
-            # if mx > 382 and mx < 544 and my > 438 and my < 495:
-            #     import PongObjects
+            if mx > 396 and mx < 540 and my > 239 and my < 300:
+                import PongClassic
+            if mx > 371 and mx < 564 and my > 334 and my < 391:
+                import PongLessPaddle
+            if mx > 382 and mx < 544 and my > 438 and my < 495:
+                import PongObjects
 
