@@ -39,8 +39,8 @@ scorePlacement2 = [675,15]
 i = 3
 
 ##Posicao da bola
-circleX = 450
-circleY = 350
+ballX = 450
+ballY = 350
 
 #velocidade bola
 velX = 10
@@ -63,7 +63,7 @@ def updateScore():
     window.blit(txtScore2,[675,15])
 
 '''___Funcao jogar outra vez___'''
-def continueGame(circleX, circleY, bounceBall, start, txtScore, txtScore2):
+def continueGame(ballX, ballY, bounceBall, start, txtScore, txtScore2):
     if scorePlayer1 > scorePlayer2:
         txtOver= OverFont.render(str("PLAYER 1 WINS!"), True, WHITE)
     elif scorePlayer1 < scorePlayer2:
@@ -75,8 +75,8 @@ def continueGame(circleX, circleY, bounceBall, start, txtScore, txtScore2):
     window.blit(txtYES,[320,340])
     txtNO = OverFont.render(str("NO"), True, WHITE)
     window.blit(txtNO,[500,340])
-    circleX = 450
-    circleY = 350
+    ballX = 450
+    ballY = 350
     pygame.display.update()
     while start:
         for e in pygame.event.get():
@@ -123,8 +123,8 @@ while bounceBall:
         paddle2_Y+=15
 
     #Bola a andar
-    circleX += velX * dt
-    circleY += velY * dt
+    ballX += velX * dt
+    ballY += velY * dt
         
     #limites paddle 1
     if paddle1_Y<100:
@@ -139,11 +139,11 @@ while bounceBall:
         paddle2_Y = 690-paddle2_H
 
     #Bola bater nas borda direita
-    if circleX > 890:
+    if ballX > 890:
         
         #Bola volta a posicao inicial
-        circleX = 450
-        circleY = 350
+        ballX = 450
+        ballY = 350
 
         #jogador um ganha um ponto
         scorePlayer1 += 1
@@ -162,11 +162,11 @@ while bounceBall:
             paddle1_H +=20
 
     #Bola bater nas borda esquerda
-    if circleX < 10:
+    if ballX < 10:
 
         #Bola volta a posicao inicial
-        circleX = 450
-        circleY = 350
+        ballX = 450
+        ballY = 350
 
         #jogador dois ganha um ponto
         scorePlayer2+=1
@@ -185,30 +185,30 @@ while bounceBall:
             paddle2_H +=20
 
     #Bola bater nas borda inferior
-    if circleY > 690:
-        circleY = 690
+    if ballY > 690:
+        ballY = 690
         velY = velY * -1
 
     #Bola bater nas borda superior
-    if circleY < 100:
-        circleY = 100
+    if ballY < 100:
+        ballY = 100
         velY = velY * -1
 
     ##colisao no paddle direito
-    if (circleY+10)>=paddle2_Y and (circleY+10)<=(paddle2_Y+130) and circleX+10 == (870): 
+    if (ballY+10)>=paddle2_Y and (ballY+10)<=(paddle2_Y+130) and ballX+10 == (870): 
         velX = velX * -1
         dt = random.randint(1,2)
         velY = random.randint(5,7) * -1
     
     ##colisao no paddle esquerdo
-    if (circleY+10)>=paddle1_Y and (circleY+10)<=(paddle1_Y+130) and circleX+10 == (50): 
+    if (ballY+10)>=paddle1_Y and (ballY+10)<=(paddle1_Y+130) and ballX+10 == (50): 
         velX = velX * -1
         dt = random.randint(1,2)
         velY = random.randint(5,7) * -1
 
     ##Jogo acaba quando a pontuacao chegar ao 30 ou quando um dos paddles deixar de existir
     if scorePlayer1 == 25 or scorePlayer2 == 25 or paddle1_H == 0 or paddle2_H == 0:
-        continueGame(circleX, circleY, bounceBall, start, txtScore, txtScore2)
+        continueGame(ballX, ballY, bounceBall, start, txtScore, txtScore2)
         scorePlayer2 = 0
         txtScore2 = font.render(str(scorePlayer2), True,WHITE)
         scorePlayer1 = 0
@@ -230,9 +230,8 @@ while bounceBall:
     pygame.draw.line(window, GREEN, [0, 90], [900, 90], 5)
 
     ##Desenha a bola
-    pygame.draw.circle(window, WHITE, (circleX, circleY), 10)
+    pygame.draw.circle(window, WHITE, (ballX, ballY), 10)
 
-    pygame.display.flip()
 
     ##SCORE 1
     window.blit(txtScore,scorePlacement)
