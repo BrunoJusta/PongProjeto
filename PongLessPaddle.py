@@ -4,7 +4,7 @@ import pygame, time, random
 ##iniciar pygame
 pygame.init()
 
-##Definir Jaanela
+##Definir Janela
 window = pygame.display.set_mode((900,700))
 
 ##cores
@@ -195,16 +195,16 @@ while bounceBall:
         velY = velY * -1
 
     ##colisao no paddle direito
-    if (ballY+10)>=paddle2_Y and (ballY+10)<=(paddle2_Y+130) and ballX+10 == (870): 
+    if (ballY+10)>=paddle2_Y+5 and (ballY+10)<=(paddle2_Y + paddle2_H + 13) and ballX+10 == (870): 
         velX = velX * -1
         dt = random.randint(1,2)
-        velY = random.randint(5,7) * -1
+        velY = random.randint(3,5) * -1
     
     ##colisao no paddle esquerdo
-    if (ballY+10)>=paddle1_Y and (ballY+10)<=(paddle1_Y+130) and ballX+10 == (50): 
+    if (ballY+10)>=paddle1_Y+5 and (ballY+10)<=(paddle1_Y + paddle1_H + 13) and ballX+10 == (50): 
         velX = velX * -1
         dt = random.randint(1,2)
-        velY = random.randint(5,7) * -1
+        velY = random.randint(3,5) * -1
 
     ##Jogo acaba quando a pontuacao chegar ao 30 ou quando um dos paddles deixar de existir
     if scorePlayer1 == 25 or scorePlayer2 == 25 or paddle1_H == 0 or paddle2_H == 0:
