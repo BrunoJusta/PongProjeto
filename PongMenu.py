@@ -53,6 +53,7 @@ txtPongObjects = font.render(str("HARD"), True, WHITE)
 window.blit(txtPongObjects,[400,450])
 pygame.draw.line(window, GREEN, [399,485], [500,485], 5)
 
+
 pygame.display.update()
 while start:
     for e in pygame.event.get():
@@ -67,4 +68,6 @@ while start:
                 import PongLessPaddle
             if mx > 382 and mx < 544 and my > 438 and my < 495:
                 import PongObjects
+
+    
 

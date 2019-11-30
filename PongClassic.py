@@ -176,14 +176,16 @@ while bounceBall:
     if (ballY+10)>=paddle2_Y and (ballY+10)<=(paddle2_Y+135) and ballX+10 == (870): 
         velX = velX * -1
         dt = random.randint(1,2)
-        velY = random.randint(4,7) * -1
+        velY = random.randint(-5,5) 
+        
         
     
     ##colisao no paddle esquerdo
     if (ballY+10)>=paddle1_Y and (ballY+10)<=(paddle1_Y+135) and ballX+10 == (50): 
         velX = velX * -1
         dt = random.randint(1,2)
-        velY = random.randint(4,7) * -1
+        velY = random.randint(-5,5) 
+      
         
          
 

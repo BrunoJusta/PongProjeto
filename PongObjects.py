@@ -241,38 +241,53 @@ while bounceBall:
     ##colisao no objeto 1
     if (ballY+10)>=object1_Y and (ballY+10)<=(object1_Y+75) and ballX+10 == (150): 
         velX = velX * -1
-        velY = random.randint(2,4)* -1
+        velY = random.randint(-2,2)
         dt = 1
+        #obejto1
+        object1_Y = random.randint(160,280)
+        object1_YFinal = object1_Y + 60
+        
 
     ##colisao no objeto 2
     if (ballY+10)>=object2_Y and (ballY+10)<=(object2_Y+75) and ballX+10 == (350): 
         velX = velX * -1
-        velY = random.randint(8,10)* -1
+        velY = random.randint(-5,5)
         dt = 1
+        #obejto2
+        object2_Y = random.randint(300,600)
+        object2_YFinal = object2_Y + 60
+      
 
     ##colisao no objeto 3
     if (ballY+10)>=object3_Y and (ballY+10)<=(object3_Y+75) and ballX+10 == (550): 
         velX = velX * -1
-        velY = random.randint(2,4)* -1
+        velY = random.randint(-2,2)
         dt = 1
+        #obejto3
+        object3_Y = random.randint(160,280)
+        object3_YFinal = object3_Y + 60
+        
 
     ##colisao no objeto 4
     if (ballY+10)>=object4_Y and (ballY+10)<=(object4_Y+75) and ballX+10 == (750): 
         velX = velX * -1
-        velY = random.randint(8,10)* -1
+        velY = random.randint(-5,5)
         dt = 1
+        #obejto4
+        object4_Y = random.randint(300,600)
+        object4_YFinal = object4_Y + 60
 
     ##colisao no paddle esquerdo
     if (ballY+10)>=paddle1_Y+10 and (ballY+10)<=(paddle1_Y+paddle1_H+10) and ballX+10 == (50): 
         velX = velX * -1
         dt = random.randint(1,2)
-        velY = random.randint(4,5) * -1
+        velY = random.randint(-5,5) 
 
     ##colisao no paddle direito
     if (ballY+10)>=paddle2_Y+10 and (ballY+10)<=(paddle2_Y+paddle2_H+10) and ballX+10 == (870): 
         velX = velX * -1
         dt = random.randint(1,2)
-        velY = random.randint(4,5) * -1
+        velY = random.randint(-5,5) 
         
     ##Jogo acaba quando a pontuacao chegar ao 30 ou quando um dos paddles deixar de existir
     if scorePlayer1 == 30 or scorePlayer2 == 30 or paddle1_H == 0 or paddle2_H == 0:
