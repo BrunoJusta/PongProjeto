@@ -8,18 +8,24 @@ pygame.init()
 window = pygame.display.set_mode((900,700))
 
 ##cores
-BLUE =  (52, 73, 94)
+POLICE_BLUE =  (52, 73, 94)
 GREEN = (65, 184, 131)
 DARKGREEN = (51, 163, 113)
 WHITE = (255, 255, 255)
+YELLOW = (255, 207, 51)
+BLUE = (64, 184, 255)
+
+ballColor = WHITE
 
 ##fontes
 font = pygame.font.Font(None, 100)
 CountFont = pygame.font.Font(None,200)
 OverFont = pygame.font.Font(None,80)
+MenuFont = pygame.font.Font(None,25)
+
 
 ##Pintar a Janela de Preto
-window.fill(BLUE)
+window.fill(POLICE_BLUE)
 
 ##Definir Variaveis
 bounceBall= True
@@ -34,6 +40,8 @@ txtScore = font.render(str(scorePlayer1), True,WHITE)
 scorePlacement = [225,15]
 txtScore2 = font.render(str(scorePlayer2), True,WHITE)
 scorePlacement2 = [675,15]
+menuBack = MenuFont.render(str("Menu [M]"), True,WHITE)
+menuBackPlacement = [10,10]
 
 ##Valor do countdown
 i = 3
@@ -61,13 +69,15 @@ paddle2_H = 120
 def updateScore():
      window.blit(txtScore,[225,15])
      window.blit(txtScore2,[675,15])
+     window.blit(menuBack,[10,10])
+
 
 ##Funcao jogar outra vez
-def continueGame(ballX, ballY, bounceBall, start, txtScore, txtScore2):
+def continueGame(ballX, ballY, bounceBall, start, txtScore, txtScore2, ballColor):
     if scorePlayer1 > scorePlayer2:
-        txtOver= OverFont.render(str("PLAYER 1 WINS!"), True, WHITE)
+        txtOver= OverFont.render(str("PLAYER 1 WINS!"), True, YELLOW)
     elif scorePlayer1 < scorePlayer2:
-        txtOver= OverFont.render(str("PLAYER 2 WINS!"), True, WHITE)
+        txtOver= OverFont.render(str("PLAYER 2 WINS!"), True, BLUE)
     window.blit(txtOver,[230,200])
     txtCONT= OverFont.render(str("CONTINUE?"), True, WHITE)
     window.blit(txtCONT,[285,280])
@@ -77,6 +87,7 @@ def continueGame(ballX, ballY, bounceBall, start, txtScore, txtScore2):
     window.blit(txtNO,[500,340])
     ballX = 450
     ballY = 350
+    ballColor = WHITE
     pygame.display.update()
     while start:
         for e in pygame.event.get():
@@ -88,7 +99,8 @@ def continueGame(ballX, ballY, bounceBall, start, txtScore, txtScore2):
                 if mx > 320 and mx < 433 and my > 343 and my < 385:
                     start = False
                 if mx > 499 and mx < 583 and my > 343 and my < 385:
-                    import PongMenu
+                    pygame.quit()
+
 
 ##Countdown
 while i > 0:
@@ -97,7 +109,7 @@ while i > 0:
     pygame.display.update()
     time.sleep(1)
     i -= 1
-    window.fill(BLUE)  
+    window.fill(POLICE_BLUE)  
 
 ##iniciar o jogo
 while bounceBall:
@@ -113,13 +125,16 @@ while bounceBall:
     ##movimento dos paddles                     
     keys = pygame.key.get_pressed()
     if keys[pygame.K_w]:
-        paddle1_Y-=15
+        paddle1_Y-=10
     if keys[pygame.K_s]:
-        paddle1_Y+=15
+        paddle1_Y+=10
     if keys[pygame.K_UP]:
-        paddle2_Y-=15
+        paddle2_Y-=10
     if keys[pygame.K_DOWN]:
-        paddle2_Y+=15
+        paddle2_Y+=10
+    if keys[pygame.K_m]:
+        import PongMenu
+    
 
     #bola a andar
     ballX += velX * dt
@@ -148,6 +163,8 @@ while bounceBall:
         txtScore = font.render(str(scorePlayer1), True,WHITE)
         velY = 5
         dt = 1
+        ballColor = WHITE
+
         
     #Bola bater nas borda esquerda
     if ballX < 10:
@@ -161,6 +178,8 @@ while bounceBall:
         txtScore2 = font.render(str(scorePlayer2), True,WHITE)
         velY = 5
         dt = 1
+        ballColor = WHITE
+
 
     #Bola bater nas borda inferior
     if ballY > 690:
@@ -176,7 +195,9 @@ while bounceBall:
     if (ballY+10)>=paddle2_Y and (ballY+10)<=(paddle2_Y+135) and ballX+10 == (870): 
         velX = velX * -1
         dt = random.randint(1,2)
-        velY = random.randint(-5,5) 
+        velY = random.randint(-5,5)
+        ballColor = BLUE
+
         
         
     
@@ -184,41 +205,49 @@ while bounceBall:
     if (ballY+10)>=paddle1_Y and (ballY+10)<=(paddle1_Y+135) and ballX+10 == (50): 
         velX = velX * -1
         dt = random.randint(1,2)
-        velY = random.randint(-5,5) 
+        velY = random.randint(-5,5)
+        ballColor = YELLOW
+    
+    if velY >= -3 and velY <= 3:
+        velY = velY + 2
+
       
         
          
 
-    ##Jogo acaba quando a pontuacao chegar a 10
-    if scorePlayer1 == 10 or scorePlayer2 == 10:
-        continueGame(ballX, ballY, bounceBall, start, txtScore, txtScore2)
+    ##Jogo acaba quando a pontuacao chegar a 5
+    if scorePlayer1 == 5 or scorePlayer2 == 5:
+        continueGame(ballX, ballY, bounceBall, start, txtScore, txtScore2, ballColor)
         scorePlayer2 = 0
         txtScore2 = font.render(str(scorePlayer2), True,WHITE)
         scorePlayer1 = 0
         txtScore = font.render(str(scorePlayer1), True,WHITE)
-        paddle1 = pygame.draw.rect(window, DARKGREEN, (20, paddle1_Y, 10, paddle1_H))
-        paddle2 = pygame.draw.rect(window, DARKGREEN, (870, paddle2_Y, 10, paddle2_H))
+        paddle1_Y = 410
+        paddle2_Y = 410
         pygame.display.flip()
 
     ##Pinta a janela
-    window.fill(BLUE)
+    window.fill(POLICE_BLUE)
     
     ##desenha os paddles
-    paddle1 = pygame.draw.rect(window, DARKGREEN, (20, paddle1_Y, 10, paddle1_H))
-    paddle2 = pygame.draw.rect(window, DARKGREEN, (870, paddle2_Y, 10, paddle2_H))
+    paddle1 = pygame.draw.rect(window, YELLOW, (20, paddle1_Y, 10, paddle1_H))
+    paddle2 = pygame.draw.rect(window, BLUE, (870, paddle2_Y, 10, paddle2_H))
     
     ##desenha a rede
     pygame.draw.line(window, GREEN, [450, 0], [450, 700], 5)
     pygame.draw.line(window, GREEN, [0, 90], [900, 90], 5)
 
     ##Desenha a bola
-    pygame.draw.circle(window, WHITE, (ballX, ballY), 10)
+    pygame.draw.circle(window, ballColor, (ballX, ballY), 10)
 
 
     ##SCORE 1
     window.blit(txtScore,scorePlacement)
     ##SCORE 2
     window.blit(txtScore2,scorePlacement2)
+
+    window.blit(menuBack,menuBackPlacement)
+
     pygame.display.update()
 
     time.sleep(0.01)
